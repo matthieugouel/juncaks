@@ -18,7 +18,7 @@ jobs:
     - stage: type
       script: make type
     - stage: tests
-      script: make tests
+      script: make test
 
 after_success:
   pipenv run coveralls
