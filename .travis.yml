@@ -13,11 +13,12 @@ install:
 
 jobs:
   include:
-    - stage: lint
+    - stage: Quality
+      name: lint
       script: make lint
-    - stage: type
+    - name: type
       script: make type
-    - stage: tests
+    - name: tests
       script: make test
 
 after_success:
