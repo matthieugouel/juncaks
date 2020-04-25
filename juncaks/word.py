@@ -52,15 +52,20 @@ class Word(object):
         return chain
 
     def generate(
-        self, min_length: int = 3, max_length: int = 7, max_try: int = 50
+        self, min_length: int = 3, max_length: int = 10, max_try: int = 50
     ) -> str:
         """Generate a word."""
+        if min_length > max_length:
+            min_length = max_length
+
         word = ""
         try_number = 0
-        while len(word) < min_length:
+
+        selected_length = random.randint(min_length, max_length)
+        while len(word) < selected_length:
             current_letter = random.choice(list(self.chain.keys()))
             word = current_letter
-            while True:
+            while len(word) < selected_length:
                 try:
                     letters = [s[0] for s in self.chain[current_letter]]
                     weights = [s[1] for s in self.chain[current_letter]]
@@ -73,8 +78,6 @@ class Word(object):
 
                     current_letter = next_letter
                 except KeyError:
-                    break
-                if len(word) >= max_length:
                     break
 
             try_number += 1
